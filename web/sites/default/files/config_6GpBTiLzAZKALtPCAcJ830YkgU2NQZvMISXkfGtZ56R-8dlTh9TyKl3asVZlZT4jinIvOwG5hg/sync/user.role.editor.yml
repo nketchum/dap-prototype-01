@@ -59,6 +59,8 @@ permissions:
   - 'use editorial transition archived_published'
   - 'use editorial transition create_new_draft'
   - 'use editorial transition publish'
+  - 'use text format advanced_text'
+  - 'use text format formatted_text'
   - 'view all revisions'
   - 'view latest version'
   - 'view news revisions'

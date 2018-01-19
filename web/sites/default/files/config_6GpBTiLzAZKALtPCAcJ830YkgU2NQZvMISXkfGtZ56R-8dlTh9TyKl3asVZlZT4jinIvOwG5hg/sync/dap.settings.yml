@@ -9,15 +9,6 @@ favicon:
 schemas:
   bootstrap: 8000
   dap: 8000
-features:
-  comment_user_picture: true
-  comment_user_verification: true
-  favicon: true
-  node_user_picture: false
-logo:
-  path: ''
-  url: ''
-  use_default: true
 breadcrumb: '0'
 region_wells:
   navigation: ''
@@ -41,4 +32,13 @@ table_responsive: '0'
 modal_enabled: 0
 popover_enabled: 0
 tooltip_enabled: 0
+features:
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  node_user_picture: false
+logo:
+  path: themes/custom/dap/dap-logo.png
+  url: ''
+  use_default: false
 table: ''

@@ -20,6 +20,8 @@ permissions:
   - 'edit own product content'
   - 'publish to any assigned domain'
   - 'use editorial transition create_new_draft'
+  - 'use text format advanced_text'
+  - 'use text format formatted_text'
   - 'view news revisions'
   - 'view product revisions'
   - 'view the administration theme'
