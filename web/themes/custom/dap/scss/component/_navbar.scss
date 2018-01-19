@@ -80,18 +80,18 @@ body {
   }
 }
 
-.navbar-right {
+.region-header .navbar-right {
   @media (min-width: 768px) {
     margin-right: 0;
   }
 }
 
-.nav > li > a {
+.region-header .nav > li > a {
   color: white;
   padding: 10px;
 }
 
-.nav > li > a:hover,
-.nav > li > a:focus {
+.region-header .nav > li > a:hover,
+.region-header .nav > li > a:focus {
   background: none;
 }
