@@ -1,0 +1,14 @@
+uuid: 1b85b37c-1056-4855-b3d9-564fb36aba43
+langcode: en
+status: true
+dependencies:
+  config:
+    - domain.record.gbr
+  module:
+    - domain_access
+id: domain_access_add_editor_action.gbr
+label: 'Add editors to the United Kingdom domain'
+type: user
+plugin: domain_access_add_editor_action
+configuration:
+  domain_id: gbr

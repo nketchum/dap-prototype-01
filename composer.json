@@ -1,0 +1,70 @@
+{
+    "name": "nketchum/composerscripts",
+    "description": "A boilerplate Drupal project with a bootstrap subtheme init script.",
+    "type": "project",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "require": {
+        "composer/installers": "~1.0",
+        "cweagans/composer-patches": "~1.0",
+        "drupal/core": "~8.0",
+        "drupal/devel": "^1.2",
+        "drupal/domain": "^1.0@alpha",
+        "drupal/country_path": "^1.0",
+        "drupal/domain_language": "^1.0@alpha",
+        "drupal/bootstrap": "^3.8",
+        "drupal/admin_toolbar": "^1.22",
+        "drupal/menu_admin_per_menu": "^1.0"
+    },
+    "require-dev": {
+        "drupal-composer/drupal-scaffold": "~2.0",
+        "drupal/console": "~1.0",
+        "drupal/drupal-extension": "~3.0",
+        "drush/drush": "~9.0"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "classmap": [
+            "scripts/composer/ScriptHandler.php",
+            "scripts/composer/bootstrap-subtheme.php"
+        ]
+    },
+    "scripts": {
+        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+        "pre-install-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+        ],
+        "pre-update-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+        ],
+        "post-install-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ],
+        "post-update-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ],
+        "bootstrap-subtheme": [
+            "DrupalProject\\composer\\SubthemeHandler::createSubtheme"
+        ]
+    },
+    "extra": {
+        "enable-patches": true,
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/contrib/{$name}": ["type:drupal-drush"]
+        }
+    }
+}

@@ -1,0 +1,25 @@
+uuid: 8f9c9475-4e02-440d-9fac-43e667e149b3
+langcode: en
+status: true
+dependencies: {  }
+id: author
+label: Author
+weight: 4
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access domain content'
+  - 'access toolbar'
+  - 'create domain content'
+  - 'create news content'
+  - 'create news content on assigned domains'
+  - 'create product content'
+  - 'create product content on assigned domains'
+  - 'edit own news content'
+  - 'edit own product content'
+  - 'publish to any assigned domain'
+  - 'use editorial transition create_new_draft'
+  - 'view news revisions'
+  - 'view product revisions'
+  - 'view the administration theme'

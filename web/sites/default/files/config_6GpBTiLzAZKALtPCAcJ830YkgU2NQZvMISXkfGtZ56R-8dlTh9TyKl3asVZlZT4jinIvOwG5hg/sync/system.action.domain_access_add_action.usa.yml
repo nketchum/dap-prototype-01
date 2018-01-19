@@ -1,0 +1,14 @@
+uuid: f6ebbf87-0119-4e22-8dcc-26d3a83cf198
+langcode: en
+status: true
+dependencies:
+  config:
+    - domain.record.usa
+  module:
+    - domain_access
+id: domain_access_add_action.usa
+label: 'Add selected content to the United States domain'
+type: node
+plugin: domain_access_add_action
+configuration:
+  domain_id: usa

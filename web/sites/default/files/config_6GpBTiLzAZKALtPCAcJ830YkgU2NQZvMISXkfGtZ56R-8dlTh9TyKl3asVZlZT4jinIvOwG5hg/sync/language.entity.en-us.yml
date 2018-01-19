@@ -1,0 +1,9 @@
+uuid: fba3cc27-ecc5-4c8d-bbed-4905d758094c
+langcode: en-gb
+status: true
+dependencies: {  }
+id: en-us
+label: 'English, US'
+direction: ltr
+weight: -9
+locked: false

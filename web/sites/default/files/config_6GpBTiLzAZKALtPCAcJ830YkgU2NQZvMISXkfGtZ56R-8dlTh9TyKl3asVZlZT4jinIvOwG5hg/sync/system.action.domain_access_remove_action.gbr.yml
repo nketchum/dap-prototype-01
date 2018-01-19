@@ -1,0 +1,14 @@
+uuid: 59eb72dd-842f-4ea6-8e5a-9d32d9e30bb2
+langcode: en
+status: true
+dependencies:
+  config:
+    - domain.record.gbr
+  module:
+    - domain_access
+id: domain_access_remove_action.gbr
+label: 'Remove selected content from the United Kingdom domain'
+type: node
+plugin: domain_access_remove_action
+configuration:
+  domain_id: gbr

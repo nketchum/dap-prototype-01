@@ -1,0 +1,44 @@
+cdn_provider: ''
+_core:
+  default_config_hash: _5qrDuRmWmRVjW00si3U1s1NrgrocA4N653EYGRfgEE
+favicon:
+  mimetype: image/vnd.microsoft.icon
+  path: ''
+  url: 'http://dap.alpha/themes/custom/dap/favicon.ico'
+  use_default: true
+schemas:
+  bootstrap: 8000
+  dap: 8000
+features:
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  node_user_picture: false
+logo:
+  path: ''
+  url: ''
+  use_default: true
+breadcrumb: '0'
+region_wells:
+  navigation: ''
+  navigation_collapsible: ''
+  header: ''
+  highlighted: ''
+  help: ''
+  content: ''
+  sidebar_first: ''
+  sidebar_second: ''
+  footer: ''
+button_colorize: 0
+button_iconize: 0
+fluid_container: 1
+forms_has_error_value_toggle: 0
+forms_smart_descriptions: 0
+image_responsive: 0
+table_hover: 0
+table_striped: 0
+table_responsive: '0'
+modal_enabled: 0
+popover_enabled: 0
+tooltip_enabled: 0
+table: ''

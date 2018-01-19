@@ -1,0 +1,14 @@
+uuid: aaab6aa2-11c2-4e4e-ad83-c1d9be04958d
+langcode: en
+status: true
+dependencies:
+  config:
+    - domain.record.deu
+  module:
+    - domain_access
+id: domain_access_add_action.deu
+label: 'Add selected content to the Germany domain'
+type: node
+plugin: domain_access_add_action
+configuration:
+  domain_id: deu

@@ -1,0 +1,16 @@
+uuid: b1f72af9-19e3-4fea-8f7c-964191d38578
+langcode: en
+status: true
+dependencies:
+  module:
+    - country_path
+third_party_settings:
+  country_path:
+    domain_path: gbr
+id: gbr
+domain_id: 10917519
+hostname: dap.alpha
+name: 'United Kingdom'
+scheme: http
+weight: -3
+is_default: true

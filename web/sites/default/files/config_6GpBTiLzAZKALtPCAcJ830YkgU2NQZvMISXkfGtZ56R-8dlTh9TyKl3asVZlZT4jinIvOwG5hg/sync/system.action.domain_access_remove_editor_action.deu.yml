@@ -1,0 +1,14 @@
+uuid: 9b0994aa-329a-4902-be79-f309711a4ff8
+langcode: en
+status: true
+dependencies:
+  config:
+    - domain.record.deu
+  module:
+    - domain_access
+id: domain_access_remove_editor_action.deu
+label: 'Remove editors from the Germany domain'
+type: user
+plugin: domain_access_remove_editor_action
+configuration:
+  domain_id: deu

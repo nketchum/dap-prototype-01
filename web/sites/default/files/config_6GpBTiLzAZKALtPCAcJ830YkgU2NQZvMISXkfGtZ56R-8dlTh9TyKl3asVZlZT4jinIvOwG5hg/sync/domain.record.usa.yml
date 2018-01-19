@@ -1,0 +1,16 @@
+uuid: bc7153f0-5294-489b-b078-d7bdacb63773
+langcode: en
+status: true
+dependencies:
+  module:
+    - country_path
+third_party_settings:
+  country_path:
+    domain_path: usa
+id: usa
+domain_id: 12492974
+hostname: dap.alpha
+name: 'United States'
+scheme: http
+weight: -2
+is_default: false

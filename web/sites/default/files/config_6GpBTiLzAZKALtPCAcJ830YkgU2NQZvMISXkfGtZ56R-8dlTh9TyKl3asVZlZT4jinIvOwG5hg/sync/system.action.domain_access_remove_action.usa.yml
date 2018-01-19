@@ -1,0 +1,14 @@
+uuid: 096232aa-9e26-41e4-86ab-709006925b47
+langcode: en
+status: true
+dependencies:
+  config:
+    - domain.record.usa
+  module:
+    - domain_access
+id: domain_access_remove_action.usa
+label: 'Remove selected content from the United States domain'
+type: node
+plugin: domain_access_remove_action
+configuration:
+  domain_id: usa

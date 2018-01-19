@@ -1,0 +1,60 @@
+# Ignore hidden files.
+.DS_Store
+.idea
+Thumbs.db
+
+# Ignore composer packages.
+vendor
+
+# Ignore core files.
+web/core
+web/libraries
+web/modules
+web/profiles
+web/themes
+
+# Ignore default text files
+web/robots.txt
+web/CHANGELOG.txt
+web/COPYRIGHT.txt
+web/INSTALL*.txt
+web/LICENSE.txt
+web/MAINTAINERS.txt
+web/UPGRADE.txt
+web/README.txt
+web/sites/README.txt
+web/sites/all/libraries/README.txt
+web/sites/all/modules/README.txt
+web/sites/all/themes/README.txt
+
+# Ignore everything but the "sites" folder
+web/.csslintrc
+web/.editorconfig
+web/.eslintignore
+web/.eslintrc.json
+web/.gitattributes
+web/.htaccess
+web/authorize.php
+web/autoload.php
+web/cron.php
+web/index.php
+web/install.php
+web/update.php
+web/web.config
+web/xmlrpc.php
+
+# Ignore paths that contain generated content.
+web/sites/*/files
+web/sites/*/private
+web/sites/*/translations
+
+# Ignore setting files.
+web/sites/default/default.services.yml
+web/sites/default/default.settings.php
+web/sites/development.services.yml
+web/sites/example.settings.local.php
+web/sites/example.sites.php
+
+# Ignore configuration files that may contain sensitive information.
+web/sites/*/settings*.php
+web/sites/*/services*.yml

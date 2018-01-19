@@ -1,0 +1,14 @@
+uuid: 3047c6da-7302-4cff-8bee-5e4f082df22f
+langcode: en
+status: true
+dependencies:
+  config:
+    - domain.record.deu
+  module:
+    - domain_access
+id: domain_access_add_editor_action.deu
+label: 'Add editors to the Germany domain'
+type: user
+plugin: domain_access_add_editor_action
+configuration:
+  domain_id: deu

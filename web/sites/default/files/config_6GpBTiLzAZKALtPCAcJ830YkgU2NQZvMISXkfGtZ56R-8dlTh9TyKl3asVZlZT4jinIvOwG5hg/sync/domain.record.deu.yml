@@ -1,0 +1,16 @@
+uuid: 8d8812ca-563a-4835-b7e3-7777a68b0462
+langcode: en
+status: true
+dependencies:
+  module:
+    - country_path
+third_party_settings:
+  country_path:
+    domain_path: deu
+id: deu
+domain_id: 5262702
+hostname: dap.alpha
+name: Germany
+scheme: http
+weight: -4
+is_default: false
