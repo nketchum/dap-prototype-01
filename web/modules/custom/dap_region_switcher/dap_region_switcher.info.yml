@@ -1,0 +1,9 @@
+name: 'DAP region switcher'
+type: module
+description: 'Allows users to switch regions and languages.'
+core: 8.x
+package: 'Custom'
+dependencies:
+  - country_path
+  - domain
+  - domain_language

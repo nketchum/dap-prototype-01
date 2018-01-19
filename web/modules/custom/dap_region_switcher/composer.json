@@ -1,0 +1,14 @@
+{
+  "name": "drupal/dap_region_switcher",
+  "type": "drupal-module",
+  "description": "Allows users to switch regions and languages.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/dap_region_switcher",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/dap_region_switcher",
+    "source": "http://cgit.drupalcode.org/dap_region_switcher"
+  },
+  "require": { }
+}

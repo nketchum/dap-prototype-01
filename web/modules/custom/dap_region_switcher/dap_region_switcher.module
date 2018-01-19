@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains dap_region_switcher.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function dap_region_switcher_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the dap_region_switcher module.
+    case 'help.page.dap_region_switcher':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Allows users to switch regions and languages.') . '</p>';
+      return $output;
+
+    default:
+  }
+}

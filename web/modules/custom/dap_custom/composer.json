@@ -1,0 +1,14 @@
+{
+  "name": "drupal/dap_custom",
+  "type": "drupal-module",
+  "description": "Custom tweaks for the Delphi Auto Parts website.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/dap_custom",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/dap_custom",
+    "source": "http://cgit.drupalcode.org/dap_custom"
+  },
+  "require": { }
+}
