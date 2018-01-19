@@ -1,0 +1,15 @@
+.region-header {
+  background: blue;
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-top: -15px;
+  overflow: hidden;
+
+  .logo {
+    margin: 15px;
+
+    img {
+      width: 150px;
+    }
+  }
+}

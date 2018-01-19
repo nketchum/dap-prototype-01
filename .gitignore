@@ -3,8 +3,9 @@
 .idea
 Thumbs.db
 
-# Ignore composer packages.
+# Ignore packages.
 vendor
+node_modules
 
 # Ignore core files.
 web/core
