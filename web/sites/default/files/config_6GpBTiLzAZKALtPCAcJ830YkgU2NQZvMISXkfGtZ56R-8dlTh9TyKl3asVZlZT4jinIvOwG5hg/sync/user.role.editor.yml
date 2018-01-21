@@ -64,6 +64,5 @@ permissions:
   - 'view all revisions'
   - 'view latest version'
   - 'view news revisions'
-  - 'view own unpublished content'
   - 'view product revisions'
   - 'view the administration theme'

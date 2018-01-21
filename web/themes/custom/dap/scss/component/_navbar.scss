@@ -95,3 +95,16 @@ body {
 .region-header .nav > li > a:focus {
   background: none;
 }
+
+.nav-tabs > li > span {
+    margin-right: 2px;
+    line-height: 1.42857;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+
+.nav > li > span {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}

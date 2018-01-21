@@ -49,9 +49,27 @@ class SwitcherBlock extends BlockBase implements ContainerFactoryPluginInterface
    * {@inheritdoc}
    */
   public function build() {
-    $markup = '';
+    $countryList = \Drupal::service('domain.loader')->loadOptionsList();
+    $scheme = \Drupal::request()->getScheme();
+    $host = \Drupal::request()->getHost();
+    $currentPath = \Drupal::service('path.current')->getPath();
+
+    $langs = array(
+      'deu' => 'de',
+      'gbr' => 'en',
+      'usa' => 'en-us',
+    );
+
+    $domains = array();
+    foreach ($countryList as $cid => $country) {
+      $lang = $langs[$cid];
+      $domains[$country] = '<li class="tabs__tab"><a href="'. $scheme . '://'. $host .'/'. $cid .'/'. $lang . $currentPath .'">'. $country .'</a></li>';
+    }
+
+    $markup = '<div class="is-horizontal"><ul class="nav tabs nav-tabs secondary clearfix">'. implode(' ', $domains) .'</ul></div>';
 
     $build = [];
+    $build['#cache']['max-age'] = 0;
     $build['switcher_block']['#markup'] = $markup;
 
     return $build;

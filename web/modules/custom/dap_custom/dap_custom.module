@@ -54,7 +54,7 @@ function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id)
       '#attached' => [
         'library' => ['node/drupal.node'],
       ],
-      // '#weight' => 100,
+      '#weight' => -10,
       '#optional' => TRUE
     ];
 
@@ -94,15 +94,6 @@ function dap_custom_form_menu_link_content_form_alter(&$form, FormStateInterface
   else {
     $form['field_domain_access']['#access'] = FALSE;
   }
-}
-
-/**
- * Implements hook_form_BASE_FORM_ID_alter() for \Drupal\node\NodeForm.
- *
- * Move Domain Access fields to an advanced tab like other node settings.
- */
-function dap_custom_form_node_form_alter(&$form, FormState $form_state, $form_id) {
-  // dsm($form);
 }
 
 /**
@@ -146,4 +137,16 @@ function _dap_custom_uid_is_admin($uid) {
   }
 
   return FALSE;
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function dap_custom_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter') {
+    // Move dap_custom_form_alter() to the end of the list.
+    $group = $implementations['dap_custom'];
+    unset($implementations['dap_custom']);
+    $implementations['dap_custom'] = $group;
+  }
 }
