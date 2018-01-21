@@ -6,9 +6,12 @@ dependencies:
     - field.field.node.product.body
     - field.field.node.product.field_domain_access
     - field.field.node.product.field_domain_all_affiliates
+    - field.field.node.product.field_image
+    - image.style.thumbnail
     - node.type.product
   module:
     - content_moderation
+    - image
     - path
     - text
 id: node.product.default
@@ -43,6 +46,14 @@ content:
       display_label: true
     weight: 41
     third_party_settings: {  }
+    region: content
+  field_image:
+    weight: 122
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
     region: content
   langcode:
     type: language_select
@@ -92,6 +103,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 5

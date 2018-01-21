@@ -6,8 +6,11 @@ dependencies:
     - field.field.node.product.body
     - field.field.node.product.field_domain_access
     - field.field.node.product.field_domain_all_affiliates
+    - field.field.node.product.field_image
+    - image.style.large
     - node.type.product
   module:
+    - image
     - text
     - user
 id: node.product.default
@@ -18,13 +21,29 @@ content:
   body:
     label: hidden
     type: text_default
-    weight: 101
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     region: content
-  links:
-    weight: 100
+  content_moderation_control:
+    weight: 0
     region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_image:
+    weight: 2
+    label: hidden
+    settings:
+      image_style: large
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+  links:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_domain_access: true
   field_domain_all_affiliates: true
