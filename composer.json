@@ -18,7 +18,10 @@
         "drupal/domain_language": "^1.0@alpha",
         "drupal/bootstrap": "^3.8",
         "drupal/admin_toolbar": "^1.22",
-        "drupal/menu_admin_per_menu": "^1.0"
+        "drupal/menu_admin_per_menu": "^1.0",
+        "drupal/domain_menu_access": "^1.0@alpha",
+        "drupal/domain_entity": "^1.0@alpha",
+        "drupal/acb": "^1.0@alpha"
     },
     "require-dev": {
         "drupal-composer/drupal-scaffold": "~2.0",

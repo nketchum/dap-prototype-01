@@ -287,7 +287,7 @@ display:
           group_type: group
           admin_label: ''
           label: Domain(s)
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -350,7 +350,7 @@ display:
           group_type: group
           admin_label: ''
           label: 'All affiliates'
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''

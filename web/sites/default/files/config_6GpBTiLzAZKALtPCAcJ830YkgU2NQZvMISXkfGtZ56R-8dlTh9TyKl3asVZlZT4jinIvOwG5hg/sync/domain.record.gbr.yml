@@ -11,6 +11,6 @@ id: gbr
 domain_id: 10917519
 hostname: dap.alpha
 name: 'United Kingdom'
-scheme: http
+scheme: variable
 weight: -3
 is_default: true

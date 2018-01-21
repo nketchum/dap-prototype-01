@@ -1,3 +1,10 @@
 node_advanced_tab: true
 _core:
   default_config_hash: t7OcDTvXZT4FQ8IxyPjOy7e-LB2zLZm-b-F5EF89cmE
+menu_enabled:
+  main: main
+  admin: 0
+  devel: 0
+  footer: 0
+  tools: 0
+  account: 0

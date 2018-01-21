@@ -51,33 +51,6 @@ class SwitcherBlock extends BlockBase implements ContainerFactoryPluginInterface
   public function build() {
     $markup = '';
 
-    $currentCountry = \Drupal::service('domain.negotiator')->getActiveDomain();
-    $currentCountry = $currentCountry->get('name');
-
-    $countryList = \Drupal::service('domain.loader')->loadOptionsList();
-    // $countryList = implode(', ', $countryList);
-
-    $langPrefixes = \Drupal::config('language.negotiation')->get('url.prefixes');
-    $langPrefixes = implode(', ', $langPrefixes);
-
-    // $markup .= $currentCountry . ' | ';
-    // $markup .= $countryList . ' | ';
-    // $markup .= $langPrefixes;
-
-    $host = \Drupal::request()->getHost();
-    $currentPath = \Drupal::service('path.current')->getPath();
-    $currentLang = \Drupal::languageManager()->getCurrentLanguage()->getId();
-
-    // $currentUrl = $host .'/'. strtolower($currentCountry) .'/'. $currentLang . $currentPath;
-    // $markup .= ' | '. $currentUrl;
-
-    $domains = array();
-    foreach ($countryList as $country) {
-      $domains[$country] = $host .'/'. strtolower($country) .'/'. $currentLang . $currentPath;
-    }
-
-    $markup .= implode('<br>', $domains);
-
     $build = [];
     $build['switcher_block']['#markup'] = $markup;
 

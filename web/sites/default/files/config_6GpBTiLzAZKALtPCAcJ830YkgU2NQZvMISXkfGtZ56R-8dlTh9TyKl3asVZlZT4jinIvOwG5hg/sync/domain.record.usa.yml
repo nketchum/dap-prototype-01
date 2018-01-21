@@ -11,6 +11,6 @@ id: usa
 domain_id: 12492974
 hostname: dap.alpha
 name: 'United States'
-scheme: http
+scheme: variable
 weight: -2
 is_default: false

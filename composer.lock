@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7511e16144084392fb9021d3385effa5",
+    "content-hash": "6235d520461fc8cfc0233648024dd54b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -684,6 +684,57 @@
             "time": "2014-09-09T13:34:57+00:00"
         },
         {
+            "name": "drupal/acb",
+            "version": "1.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/acb",
+                "reference": "8.x-1.0-alpha1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/acb-8.x-1.0-alpha1.zip",
+                "reference": "8.x-1.0-alpha1",
+                "shasum": "c91315d12ecfa38b3318b2c62e310fbec814cced"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha1",
+                    "datestamp": "1497345842",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Propaganistas",
+                    "homepage": "https://www.drupal.org/user/1082884"
+                },
+                {
+                    "name": "svendecabooter",
+                    "homepage": "https://www.drupal.org/user/35369"
+                }
+            ],
+            "description": "Bridge module linking Access Control modules so their access permissions work happily together.",
+            "homepage": "https://www.drupal.org/project/acb",
+            "support": {
+                "source": "http://cgit.drupalcode.org/acb"
+            }
+        },
+        {
             "name": "drupal/admin_toolbar",
             "version": "1.22.0",
             "source": {
@@ -1219,6 +1270,47 @@
             }
         },
         {
+            "name": "drupal/domain_access",
+            "version": "1.0.0-alpha11",
+            "require": {
+                "drupal/core": "*",
+                "drupal/domain": "self.version"
+            },
+            "type": "metapackage",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha11",
+                    "datestamp": "1513718584",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "agentrickard",
+                    "homepage": "https://www.drupal.org/user/20975"
+                },
+                {
+                    "name": "nonsie",
+                    "homepage": "https://www.drupal.org/user/29899"
+                }
+            ],
+            "description": "Domain-based access control for content.",
+            "homepage": "https://www.drupal.org/project/domain",
+            "support": {
+                "source": "http://cgit.drupalcode.org/domain"
+            }
+        },
+        {
             "name": "drupal/domain_config",
             "version": "1.0.0-alpha11",
             "require": {
@@ -1257,6 +1349,59 @@
             "homepage": "https://www.drupal.org/project/domain",
             "support": {
                 "source": "http://cgit.drupalcode.org/domain"
+            }
+        },
+        {
+            "name": "drupal/domain_entity",
+            "version": "1.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/domain_entity",
+                "reference": "8.x-1.0-alpha1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/domain_entity-8.x-1.0-alpha1.zip",
+                "reference": "8.x-1.0-alpha1",
+                "shasum": "bd7a4bee78bf2c2be579f5d356ed8d969fed551d"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/domain": "*",
+                "drupal/domain_access": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha1",
+                    "datestamp": "1506522843",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "andypost",
+                    "homepage": "https://www.drupal.org/user/118908"
+                },
+                {
+                    "name": "delta",
+                    "homepage": "https://www.drupal.org/user/1270276"
+                }
+            ],
+            "description": "Defines Domain access for entities",
+            "homepage": "https://www.drupal.org/project/domain_entity",
+            "support": {
+                "source": "http://cgit.drupalcode.org/domain_entity"
             }
         },
         {
@@ -1306,6 +1451,59 @@
             "homepage": "https://www.drupal.org/project/domain_language",
             "support": {
                 "source": "http://cgit.drupalcode.org/domain_language"
+            }
+        },
+        {
+            "name": "drupal/domain_menu_access",
+            "version": "1.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/domain_menu_access",
+                "reference": "8.x-1.0-alpha1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/domain_menu_access-8.x-1.0-alpha1.zip",
+                "reference": "8.x-1.0-alpha1",
+                "shasum": "1af0a37aec8ab7c8776eb0754547c8b39d541820"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/domain": "*",
+                "drupal/domain_access": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha1",
+                    "datestamp": "1486480983",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastien @Actualys",
+                    "homepage": "https://www.drupal.org/user/380104"
+                },
+                {
+                    "name": "maciej.zgadzaj",
+                    "homepage": "https://www.drupal.org/user/271491"
+                }
+            ],
+            "description": "Domain-based access control for menu link.",
+            "homepage": "https://www.drupal.org/project/domain_menu_access",
+            "support": {
+                "source": "http://cgit.drupalcode.org/domain_menu_access"
             }
         },
         {
@@ -6413,7 +6611,10 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/domain": 15,
-        "drupal/domain_language": 15
+        "drupal/domain_language": 15,
+        "drupal/domain_menu_access": 15,
+        "drupal/domain_entity": 15,
+        "drupal/acb": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,

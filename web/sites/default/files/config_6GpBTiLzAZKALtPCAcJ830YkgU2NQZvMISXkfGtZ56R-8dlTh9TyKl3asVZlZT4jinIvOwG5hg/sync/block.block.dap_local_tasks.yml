@@ -9,7 +9,7 @@ _core:
 id: dap_local_tasks
 theme: dap
 region: content
-weight: -20
+weight: -4
 provider: null
 plugin: local_tasks_block
 settings:

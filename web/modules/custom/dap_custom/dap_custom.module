@@ -5,20 +5,145 @@
  * Contains dap_custom.module.
  */
 
+use Drupal\Core\Breadcrumb\Breadcrumb;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\user\Entity\Role;
+use Drupal\user\Entity\User;
+use Drupal\Core\Form\FormState;
 
 /**
- * Implements hook_help().
+ * Implements hook_form_alter().
  */
-function dap_custom_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-    // Main module help for the dap_custom module.
-    case 'help.page.dap_custom':
-      $output = '';
-      $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('Custom tweaks for the Delphi Auto Parts website.') . '</p>';
-      return $output;
+function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (
+    $form_id == 'menu_link_content_menu_link_content_form' ||
+    $form_id == 'node_product_form' ||
+    $form_id == 'node_product_edit_form' ||
+    $form_id == 'user_form' ||
+    $form_id == 'user_register_form'
+  ) {
+    // Get the current uid and user object.
+    $uid = (int) Drupal::currentUser()->id();
 
-    default:
+    // Modify some fields except for admins.
+    if (!_dap_custom_uid_is_admin($uid)) {
+      if (array_key_exists('field_domain_all_affiliates', $form)) {
+        $form['field_domain_all_affiliates']['#access'] = FALSE;
+      }
+    }
   }
+
+  if (
+    $form_id == 'node_product_form' ||
+    $form_id == 'node_product_edit_form' ||
+    $form_id == 'menu_link_content_menu_link_content_form'
+  ) {
+    $form['field_domain_access']['widget']['#title'] = t('Visible in');
+    $form['field_domain_access']['widget']['#description'] = t('Countries for which to include this translation.');
+
+    $form['field_domain_access']['#group'] = 'domain';
+    $form['domain'] = [
+      '#type' => 'details',
+      '#title' => t('Countries'),
+      '#group' => 'advanced',
+      '#attributes' => [
+        'class' => ['node-form-options']
+      ],
+      '#attached' => [
+        'library' => ['node/drupal.node'],
+      ],
+      // '#weight' => 100,
+      '#optional' => TRUE
+    ];
+
+    // Add the options hidden from the user silently to the form.
+    $manager = \Drupal::service('domain.element_manager');
+    $form = $manager->setFormOptions($form, $form_state, 'field_domain_access');
+  }
+
+  if (
+    $form_id == 'user_form' ||
+    $form_id == 'user_register_form'
+  ) {
+      $form['field_domain_access']['widget']['#title'] = t('Enabled countries');
+      $form['field_domain_access']['widget']['#description'] = t('Countries for which the author may contribute.');
+  }
+}
+
+function dap_custom_form_menu_link_content_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form_object = $form_state->getFormObject();
+  $entity = $form_object->getEntity();
+  $config = \Drupal::config('domain_access.settings')->get('menu_enabled');
+
+  if (!empty($config[$entity->getMenuName()])) {
+    $form['domain'] = array(
+      '#type' => 'details',
+      '#title' => t('Countries'),
+      '#open' => TRUE,
+      '#weight' => 25,
+    );
+
+    $form['field_domain_access']['#group'] = 'domain';
+
+    // Add the options hidden from the user silently to the form.
+    $manager = \Drupal::service('domain.element_manager');
+    $form = $manager->setFormOptions($form, $form_state, 'field_domain_access');
+  }
+  else {
+    $form['field_domain_access']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for \Drupal\node\NodeForm.
+ *
+ * Move Domain Access fields to an advanced tab like other node settings.
+ */
+function dap_custom_form_node_form_alter(&$form, FormState $form_state, $form_id) {
+  // dsm($form);
+}
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function dap_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+  $links = array();
+  foreach ($breadcrumb->getLinks() as $link) {
+    $text = $link->getText();
+    if (method_exists($text, 'render') && $text->render() === 'Content') {
+      // $links[] = Link::createFromRoute(t('Content'), 'domain_content.content_list'); // Disable link for now...
+    }
+    else {
+      $links[] = $link;
+    }
+  }
+  $breadcrumb = new Breadcrumb();
+  $breadcrumb->setLinks($links);
+  $breadcrumb->addCacheContexts(['url.path.parent', 'user.permissions']);
+  $breadcrumb->mergeCacheMaxAge(0);
+}
+
+/**
+ * Find out if a user is an admin via uid.
+ */
+function _dap_custom_uid_is_admin($uid) {
+  // Get the user.
+  $user = User::load($uid);
+
+  // Find out if the user is a drupal admin.
+  if ($uid === 1) {
+    return TRUE;
+  }
+  else {
+    foreach ($user->getRoles() as $rolename) {
+      $role =  Role::load($rolename);
+      if ($role->isAdmin()) {
+        return TRUE;
+      }
+    }
+  }
+
+  return FALSE;
 }

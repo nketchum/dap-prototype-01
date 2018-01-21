@@ -11,6 +11,6 @@ id: deu
 domain_id: 5262702
 hostname: dap.alpha
 name: Germany
-scheme: http
+scheme: variable
 weight: -4
 is_default: false
