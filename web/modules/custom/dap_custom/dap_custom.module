@@ -20,7 +20,7 @@ use Drupal\views\ViewExecutable;
  */
 function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if (
-    $form_id == 'menu_link_content_menu_link_content_form' ||
+    // $form_id == 'menu_link_content_menu_link_content_form' ||
     $form_id == 'node_product_form' ||
     $form_id == 'node_product_edit_form' ||
     $form_id == 'node_news_form' ||
@@ -43,8 +43,8 @@ function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id)
     $form_id == 'node_product_form' ||
     $form_id == 'node_product_edit_form' ||
     $form_id == 'node_news_form' ||
-    $form_id == 'node_news_edit_form' ||
-    $form_id == 'menu_link_content_menu_link_content_form'
+    $form_id == 'node_news_edit_form'
+    // || $form_id == 'menu_link_content_menu_link_content_form'
   ) {
     $form['field_domain_access']['widget']['#title'] = t('Visible in');
     $form['field_domain_access']['widget']['#description'] = t('Countries for which to include this translation.');
@@ -89,29 +89,29 @@ function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id)
   }
 }
 
-function dap_custom_form_menu_link_content_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $form_object = $form_state->getFormObject();
-  $entity = $form_object->getEntity();
-  $config = \Drupal::config('domain_access.settings')->get('menu_enabled');
+// function dap_custom_form_menu_link_content_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+//   $form_object = $form_state->getFormObject();
+//   $entity = $form_object->getEntity();
+//   $config = \Drupal::config('domain_access.settings')->get('menu_enabled');
 
-  if (!empty($config[$entity->getMenuName()])) {
-    $form['domain'] = array(
-      '#type' => 'details',
-      '#title' => t('Countries'),
-      '#open' => TRUE,
-      '#weight' => 25,
-    );
+//   if (!empty($config[$entity->getMenuName()])) {
+//     $form['domain'] = array(
+//       '#type' => 'details',
+//       '#title' => t('Countries'),
+//       '#open' => TRUE,
+//       '#weight' => 25,
+//     );
 
-    $form['field_domain_access']['#group'] = 'domain';
+//     $form['field_domain_access']['#group'] = 'domain';
 
-    // Add the options hidden from the user silently to the form.
-    $manager = \Drupal::service('domain.element_manager');
-    $form = $manager->setFormOptions($form, $form_state, 'field_domain_access');
-  }
-  else {
-    $form['field_domain_access']['#access'] = FALSE;
-  }
-}
+//     // Add the options hidden from the user silently to the form.
+//     $manager = \Drupal::service('domain.element_manager');
+//     $form = $manager->setFormOptions($form, $form_state, 'field_domain_access');
+//   }
+//   else {
+//     $form['field_domain_access']['#access'] = FALSE;
+//   }
+// }
 
 /**
  * Implements hook_system_breadcrumb_alter().
