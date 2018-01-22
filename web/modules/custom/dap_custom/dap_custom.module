@@ -23,6 +23,8 @@ function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id)
     $form_id == 'menu_link_content_menu_link_content_form' ||
     $form_id == 'node_product_form' ||
     $form_id == 'node_product_edit_form' ||
+    $form_id == 'node_news_form' ||
+    $form_id == 'node_news_edit_form' ||
     $form_id == 'user_form' ||
     $form_id == 'user_register_form'
   ) {
@@ -40,6 +42,8 @@ function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id)
   if (
     $form_id == 'node_product_form' ||
     $form_id == 'node_product_edit_form' ||
+    $form_id == 'node_news_form' ||
+    $form_id == 'node_news_edit_form' ||
     $form_id == 'menu_link_content_menu_link_content_form'
   ) {
     $form['field_domain_access']['widget']['#title'] = t('Visible in');
