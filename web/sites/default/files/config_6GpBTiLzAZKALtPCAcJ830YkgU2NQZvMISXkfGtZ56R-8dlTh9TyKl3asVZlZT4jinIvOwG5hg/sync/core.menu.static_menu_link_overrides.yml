@@ -1,3 +1,21 @@
-definitions: {  }
+definitions:
+  admin_toolbar_tools__drupalorg:
+    enabled: false
+    menu_name: admin
+    parent: admin_toolbar_tools.help
+    expanded: false
+    weight: -5
+  admin_toolbar_tools__listchanges:
+    enabled: false
+    menu_name: admin
+    parent: admin_toolbar_tools.drupalorg
+    weight: -6
+    expanded: false
+  admin_toolbar_tools__doc:
+    enabled: false
+    menu_name: admin
+    parent: admin_toolbar_tools.drupalorg
+    weight: -5
+    expanded: false
 _core:
   default_config_hash: jdY7AU0tU-QsjmiOw3W8vwpYMb-By--_MSFgbqKUTYM

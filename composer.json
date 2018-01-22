@@ -21,7 +21,8 @@
         "drupal/menu_admin_per_menu": "^1.0",
         "drupal/domain_menu_access": "^1.0@alpha",
         "drupal/domain_entity": "^1.0@alpha",
-        "drupal/acb": "^1.0@alpha"
+        "drupal/acb": "^1.0@alpha",
+        "drupal/taxonomy_access_fix": "^2.1"
     },
     "require-dev": {
         "drupal-composer/drupal-scaffold": "~2.0",

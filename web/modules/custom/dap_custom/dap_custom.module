@@ -12,6 +12,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
 use Drupal\Core\Form\FormState;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_form_alter().
@@ -69,6 +70,15 @@ function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id)
   ) {
       $form['field_domain_access']['widget']['#title'] = t('Enabled countries');
       $form['field_domain_access']['widget']['#description'] = t('Countries for which the author may contribute.');
+
+      $path = \Drupal::service('path.current')->getPath();
+      $params = Url::fromUri("internal:" . $path)->getRouteParameters();
+      $entity_type = key($params);
+      $user = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+
+      if ($user->hasRole('editor')) {
+        $form['field_domain_access']['#access'] = FALSE;
+      }
   }
 }
 

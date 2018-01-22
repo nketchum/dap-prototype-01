@@ -7,11 +7,9 @@ label: Author
 weight: 4
 is_admin: null
 permissions:
-  - 'access administration pages'
   - 'access content overview'
   - 'access domain content'
   - 'access toolbar'
-  - 'create domain content'
   - 'create news content'
   - 'create news content on assigned domains'
   - 'create product content'
