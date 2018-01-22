@@ -17,5 +17,11 @@ definitions:
     parent: admin_toolbar_tools.drupalorg
     weight: -5
     expanded: false
+  admin_development:
+    enabled: false
+    menu_name: admin
+    parent: admin_toolbar_tools.help
+    expanded: false
+    weight: -8
 _core:
   default_config_hash: jdY7AU0tU-QsjmiOw3W8vwpYMb-By--_MSFgbqKUTYM

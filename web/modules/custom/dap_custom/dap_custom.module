@@ -13,6 +13,7 @@ use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Url;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_form_alter().
@@ -74,10 +75,12 @@ function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id)
       $path = \Drupal::service('path.current')->getPath();
       $params = Url::fromUri("internal:" . $path)->getRouteParameters();
       $entity_type = key($params);
-      $user = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
 
-      if ($user->hasRole('editor')) {
-        $form['field_domain_access']['#access'] = FALSE;
+      if ($entity_type === 'user') {
+        $user = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+        if ($user->hasRole('editor')) {
+          $form['field_domain_access']['#access'] = FALSE;
+        }
       }
   }
 }
@@ -158,5 +161,26 @@ function dap_custom_module_implements_alter(&$implementations, $hook) {
     $group = $implementations['dap_custom'];
     unset($implementations['dap_custom']);
     $implementations['dap_custom'] = $group;
+  }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function dap_custom_views_pre_render(ViewExecutable $view) {
+  // Ensure unique company nodes.
+  if ($view->storage->get('id') === 'news') {
+    $i = 0;
+    $nodes = [];
+    foreach ($view->result as $result) {
+      $entity = $result->_entity;
+      $nid = $entity->get('nid')->value;
+      if (in_array($nid, $nodes)) {
+        unset($view->result[$i]);
+      } else {
+        $nodes[] = $entity->get('nid')->value;
+      }
+      $i++;
+    }
   }
 }
