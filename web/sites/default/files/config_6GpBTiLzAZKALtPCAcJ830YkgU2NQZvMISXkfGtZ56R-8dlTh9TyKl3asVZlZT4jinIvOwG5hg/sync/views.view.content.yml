@@ -615,6 +615,8 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
+              editor: '0'
+              author: '0'
             reduce: false
           is_grouped: false
           group_info:

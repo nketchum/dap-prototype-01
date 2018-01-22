@@ -168,8 +168,12 @@ function dap_custom_module_implements_alter(&$implementations, $hook) {
  * Implements hook_views_pre_render().
  */
 function dap_custom_views_pre_render(ViewExecutable $view) {
-  // Ensure unique company nodes.
-  if ($view->storage->get('id') === 'news') {
+  // Ensure unique nodes.
+  if (
+    $view->storage->get('id') === 'news'
+    // $view->storage->get('id') === 'affiliated_content' ||
+    // $view->storage->get('id') === 'content'
+  ) {
     $i = 0;
     $nodes = [];
     foreach ($view->result as $result) {
