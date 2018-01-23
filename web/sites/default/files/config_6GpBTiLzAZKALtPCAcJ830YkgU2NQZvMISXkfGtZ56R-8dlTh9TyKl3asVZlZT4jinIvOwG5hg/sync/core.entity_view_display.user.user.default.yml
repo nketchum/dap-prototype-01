@@ -1,0 +1,21 @@
+uuid: 23486b2e-b902-4bac-9409-2bd73efb5dd3
+langcode: en-us
+status: true
+dependencies:
+  config:
+    - field.field.user.user.field_domain_access
+    - field.field.user.user.field_domain_admin
+    - field.field.user.user.field_domain_all_affiliates
+  module:
+    - user
+id: user.user.default
+targetEntityType: user
+bundle: user
+mode: default
+content: {  }
+hidden:
+  field_domain_access: true
+  field_domain_admin: true
+  field_domain_all_affiliates: true
+  langcode: true
+  member_for: true

@@ -1,0 +1,8 @@
+uuid: c1959386-95a6-4f66-8cf0-bdc7c524a5bd
+langcode: en
+status: true
+dependencies: {  }
+id: custom
+label: 'Custom block'
+revision: 1
+description: 'For text content that should be shown in a block.'

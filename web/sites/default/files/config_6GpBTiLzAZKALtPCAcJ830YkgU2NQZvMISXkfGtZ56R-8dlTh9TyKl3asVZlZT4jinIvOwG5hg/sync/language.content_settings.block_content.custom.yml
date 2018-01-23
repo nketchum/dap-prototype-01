@@ -1,0 +1,16 @@
+uuid: ea4e241b-44a2-49e4-82b2-c1429cfbcd71
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.custom
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: block_content.custom
+target_entity_type_id: block_content
+target_bundle: custom
+default_langcode: current_interface
+language_alterable: true

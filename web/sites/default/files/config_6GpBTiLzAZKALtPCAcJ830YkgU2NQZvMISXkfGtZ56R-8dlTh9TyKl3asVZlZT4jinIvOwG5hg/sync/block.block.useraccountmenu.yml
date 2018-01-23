@@ -1,0 +1,24 @@
+uuid: d5103481-dcb8-4b40-8e18-90704d612c02
+langcode: en-us
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+  theme:
+    - dap
+id: useraccountmenu
+theme: dap
+region: header
+weight: 0
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: 'User account menu'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 1
+visibility: {  }

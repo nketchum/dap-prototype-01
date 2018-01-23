@@ -1,0 +1,20 @@
+uuid: 268a9714-cece-469d-ba23-8b2828d9424a
+langcode: en
+status: true
+dependencies:
+  module:
+    - dap_region_switcher
+  theme:
+    - dap
+id: regionandlanguagesimpleeswitcherblock
+theme: dap
+region: footer
+weight: 0
+provider: null
+plugin: simple_switcher_block
+settings:
+  id: simple_switcher_block
+  label: 'Switch region'
+  provider: dap_region_switcher
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,26 @@
+uuid: a6432577-291e-4692-876f-c134ec35c98d
+langcode: en
+status: true
+dependencies:
+  module:
+    - dap_region_switcher
+    - system
+  theme:
+    - seven
+id: regionandlanguageswitcherblock
+theme: seven
+region: content
+weight: 0
+provider: null
+plugin: switcher_block
+settings:
+  id: switcher_block
+  label: 'Switch region'
+  provider: dap_region_switcher
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: '/admin/content/domain-content*'
+    negate: true
+    context_mapping: {  }

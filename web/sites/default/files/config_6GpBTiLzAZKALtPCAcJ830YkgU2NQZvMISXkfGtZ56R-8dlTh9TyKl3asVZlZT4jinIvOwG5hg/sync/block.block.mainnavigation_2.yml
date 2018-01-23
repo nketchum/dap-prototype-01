@@ -1,0 +1,24 @@
+uuid: d52d0ccd-3bcc-42a9-bbd7-fd15941bda72
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - domain_menu_access
+  theme:
+    - dap
+id: mainnavigation_2
+theme: dap
+region: navigation
+weight: 0
+provider: null
+plugin: 'domain_access_menu_block:main'
+settings:
+  id: 'domain_access_menu_block:main'
+  label: 'Main navigation'
+  provider: domain_menu_access
+  label_display: '0'
+  level: '1'
+  depth: '0'
+visibility: {  }

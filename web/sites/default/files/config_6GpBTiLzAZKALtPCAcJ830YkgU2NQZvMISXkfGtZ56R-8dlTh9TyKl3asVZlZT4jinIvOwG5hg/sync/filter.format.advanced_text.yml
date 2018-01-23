@@ -1,0 +1,8 @@
+uuid: 51867f5e-ec07-4d13-8d26-6c55b37da604
+langcode: en
+status: true
+dependencies: {  }
+name: 'Advanced text'
+format: advanced_text
+weight: -8
+filters: {  }
