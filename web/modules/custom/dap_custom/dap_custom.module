@@ -125,22 +125,22 @@ function dap_custom_form_menu_link_content_form_alter(&$form, FormStateInterface
 /**
  * Implements hook_system_breadcrumb_alter().
  */
-function dap_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
-  $links = array();
-  foreach ($breadcrumb->getLinks() as $link) {
-    $text = $link->getText();
-    if (method_exists($text, 'render') && $text->render() === 'Content') {
-      // $links[] = Link::createFromRoute(t('Content'), 'domain_content.content_list'); // Disable link for now...
-    }
-    else {
-      $links[] = $link;
-    }
-  }
-  $breadcrumb = new Breadcrumb();
-  $breadcrumb->setLinks($links);
-  $breadcrumb->addCacheContexts(['url.path.parent', 'user.permissions']);
-  $breadcrumb->mergeCacheMaxAge(0);
-}
+// function dap_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+//   $links = array();
+//   foreach ($breadcrumb->getLinks() as $link) {
+//     $text = $link->getText();
+//     if (method_exists($text, 'render') && $text->render() === 'Content') {
+//       // $links[] = Link::createFromRoute(t('Content'), 'domain_content.content_list'); // Disable link for now...
+//     }
+//     else {
+//       $links[] = $link;
+//     }
+//   }
+//   $breadcrumb = new Breadcrumb();
+//   $breadcrumb->setLinks($links);
+//   $breadcrumb->addCacheContexts(['url.path.parent', 'user.permissions']);
+//   $breadcrumb->mergeCacheMaxAge(0);
+// }
 
 /**
  * Implements hook_module_implements_alter().
