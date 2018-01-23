@@ -6,23 +6,34 @@
  */
 
 use Drupal\Core\Breadcrumb\Breadcrumb;
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
+use Drupal\Core\Menu\MenuLinkTreeElement;
+use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\Render\Element;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
-use Drupal\Core\Form\FormState;
-use Drupal\Core\Url;
 use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_form_alter().
  */
 function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Customize menu form functionality for multi country and multi lang.
+  if ($form_id === 'menu_edit_form') {
+    $form = _dap_custom_manipulate_menu_form($form);
+  }
+
   if (
     $form_id == 'menu_link_content_menu_link_content_form' ||
     $form_id == 'node_product_form' ||
     $form_id == 'node_product_edit_form' ||
+    $form_id == 'node_news_form' ||
+    $form_id == 'node_news_edit_form' ||
     $form_id == 'user_form' ||
     $form_id == 'user_register_form'
   ) {
@@ -40,6 +51,8 @@ function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id)
   if (
     $form_id == 'node_product_form' ||
     $form_id == 'node_product_edit_form' ||
+    $form_id == 'node_news_form' ||
+    $form_id == 'node_news_edit_form' ||
     $form_id == 'menu_link_content_menu_link_content_form'
   ) {
     $form['field_domain_access']['widget']['#title'] = t('Visible in');
@@ -79,7 +92,7 @@ function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id)
       if ($entity_type === 'user') {
         $user = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
         if ($user->hasRole('editor')) {
-          $form['field_domain_access']['#access'] = FALSE;
+          // $form['field_domain_access']['#access'] = FALSE;
         }
       }
   }
@@ -130,29 +143,6 @@ function dap_custom_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchI
 }
 
 /**
- * Find out if a user is an admin via uid.
- */
-function _dap_custom_uid_is_admin($uid) {
-  // Get the user.
-  $user = User::load($uid);
-
-  // Find out if the user is a drupal admin.
-  if ($uid === 1) {
-    return TRUE;
-  }
-  else {
-    foreach ($user->getRoles() as $rolename) {
-      $role =  Role::load($rolename);
-      if ($role->isAdmin()) {
-        return TRUE;
-      }
-    }
-  }
-
-  return FALSE;
-}
-
-/**
  * Implements hook_module_implements_alter().
  */
 function dap_custom_module_implements_alter(&$implementations, $hook) {
@@ -188,3 +178,242 @@ function dap_custom_views_pre_render(ViewExecutable $view) {
     }
   }
 }
+
+/**
+ * Find out if a user is an admin via uid.
+ */
+function _dap_custom_uid_is_admin($uid) {
+  // Get the user.
+  $user = User::load($uid);
+
+  // Find out if the user is a drupal admin.
+  if ($uid === 1) {
+    return TRUE;
+  }
+  else {
+    foreach ($user->getRoles() as $rolename) {
+      $role =  Role::load($rolename);
+      if ($role->isAdmin()) {
+        return TRUE;
+      }
+    }
+  }
+
+  return FALSE;
+}
+
+function _dap_custom_manipulate_menu_form($form) {
+  // Override the menu form.
+  unset($form['links']);
+  $tree = Drupal::menuTree()->load('main', new MenuTreeParameters());
+
+  // We indicate that a menu administrator is running the menu access check.
+  Drupal::request()->attributes->set('_menu_admin', TRUE);
+  $manipulators = [
+    ['callable' => 'menu.default_tree_manipulators:checkAccess'],
+    ['callable' => 'domain_menu_access.default_tree_manipulators:checkDomain'],
+    // ['callable' => 'dap_custom.dap_menu_tree_manipulators:checkDomain'],
+  ];
+  $tree = Drupal::menuTree()->transform($tree, $manipulators);
+  Drupal::request()->attributes->set('_menu_admin', FALSE);
+
+  // Determine the delta; the number of weights to be made available.
+  $count = function (array $tree) {
+    $sum = function ($carry, MenuLinkTreeElement $item) {
+      return $carry + $item->count();
+    };
+    return array_reduce($tree, $sum);
+  };
+  $delta = max($count($tree), 50);
+
+  $form['links'] = [
+    '#type' => 'table',
+    '#theme' => 'table__menu_overview',
+    '#header' => [
+      t('Menu link'),
+      [
+        'data' => t('Enabled'),
+        'class' => ['checkbox'],
+      ],
+      t('Weight'),
+      [
+        'data' => t('Operations'),
+        'colspan' => 3,
+      ],
+    ],
+    '#attributes' => [
+      'id' => 'menu-overview',
+    ],
+    '#tabledrag' => [
+      [
+        'action' => 'match',
+        'relationship' => 'parent',
+        'group' => 'menu-parent',
+        'subgroup' => 'menu-parent',
+        'source' => 'menu-id',
+        'hidden' => TRUE,
+        'limit' => \Drupal::menuTree()->maxDepth() - 1,
+      ],
+      [
+        'action' => 'order',
+        'relationship' => 'sibling',
+        'group' => 'menu-weight',
+      ],
+    ],
+  ];
+
+  $menu = Drupal::entityTypeManager()->getStorage('menu')->load('main');
+  $form['links']['#empty'] = t('There are no menu links yet. <a href=":url">Add link</a>.', [
+    ':url' => $menu->url('entity.menu.add_link_form', ['menu' => $menu->id()], [
+      'query' => ['destination' => $menu->url('edit-form')],
+    ]),
+  ]);
+
+  $links = _dap_custom_buildOverviewTreeForm($tree, $delta);
+
+  foreach (Element::children($links) as $id) {
+    if (isset($links[$id]['#item'])) {
+      $element = $links[$id];
+
+      $form['links'][$id]['#item'] = $element['#item'];
+
+      // TableDrag: Mark the table row as draggable.
+      $form['links'][$id]['#attributes'] = $element['#attributes'];
+      $form['links'][$id]['#attributes']['class'][] = 'draggable';
+
+      // TableDrag: Sort the table row according to its existing/configured weight.
+      $form['links'][$id]['#weight'] = $element['#item']->link->getWeight();
+
+      // Add special classes to be used for tabledrag.js.
+      $element['parent']['#attributes']['class'] = ['menu-parent'];
+      $element['weight']['#attributes']['class'] = ['menu-weight'];
+      $element['id']['#attributes']['class'] = ['menu-id'];
+
+      $form['links'][$id]['title'] = [
+        [
+          '#theme' => 'indentation',
+          '#size' => $element['#item']->depth - 1,
+        ],
+        $element['title'],
+      ];
+      $form['links'][$id]['enabled'] = $element['enabled'];
+      $form['links'][$id]['enabled']['#wrapper_attributes']['class'] = ['checkbox', 'menu-enabled'];
+
+      $form['links'][$id]['weight'] = $element['weight'];
+
+      // Operations (dropbutton) column.
+      $form['links'][$id]['operations'] = $element['operations'];
+
+      $form['links'][$id]['id'] = $element['id'];
+      $form['links'][$id]['parent'] = $element['parent'];
+    }
+  }
+
+  return $form;
+}
+
+function _dap_custom_buildOverviewTreeForm($tree, $delta) {
+    // $form = &$this->overviewTreeForm;
+    $form = ['#tree' => TRUE];
+    $tree_access_cacheability = new CacheableMetadata();
+    foreach ($tree as $element) {
+      $tree_access_cacheability = $tree_access_cacheability->merge(CacheableMetadata::createFromObject($element->access));
+
+      // Only render accessible links.
+      if (!$element->access->isAllowed()) {
+        continue;
+      }
+
+      /** @var \Drupal\Core\Menu\MenuLinkInterface $link */
+      $link = $element->link;
+      if ($link) {
+        $id = 'menu_plugin_id:' . $link->getPluginId();
+        $form[$id]['#item'] = $element;
+        $form[$id]['#attributes'] = $link->isEnabled() ? ['class' => ['menu-enabled']] : ['class' => ['menu-disabled']];
+        $form[$id]['title'] = Link::fromTextAndUrl($link->getTitle(), $link->getUrlObject())->toRenderable();
+        if (!$link->isEnabled()) {
+          $form[$id]['title']['#suffix'] = ' (' . t('disabled') . ')';
+        }
+        // @todo Remove this in https://www.drupal.org/node/2568785.
+        elseif ($id === 'menu_plugin_id:user.logout') {
+          $form[$id]['title']['#suffix'] = ' (' . t('<q>Log in</q> for anonymous users') . ')';
+        }
+        // @todo Remove this in https://www.drupal.org/node/2568785.
+        elseif (($url = $link->getUrlObject()) && $url->isRouted() && $url->getRouteName() == 'user.page') {
+          $form[$id]['title']['#suffix'] = ' (' . t('logged in users only') . ')';
+        }
+
+        $form[$id]['enabled'] = [
+          '#type' => 'checkbox',
+          '#title' => t('Enable @title menu link', ['@title' => $link->getTitle()]),
+          '#title_display' => 'invisible',
+          '#default_value' => $link->isEnabled(),
+        ];
+        $form[$id]['weight'] = [
+          '#type' => 'weight',
+          '#delta' => $delta,
+          '#default_value' => $link->getWeight(),
+          '#title' => t('Weight for @title', ['@title' => $link->getTitle()]),
+          '#title_display' => 'invisible',
+        ];
+        $form[$id]['id'] = [
+          '#type' => 'hidden',
+          '#value' => $link->getPluginId(),
+        ];
+        $form[$id]['parent'] = [
+          '#type' => 'hidden',
+          '#default_value' => $link->getParent(),
+        ];
+        // Build a list of operations.
+        $operations = [];
+        $operations['edit'] = [
+          'title' => t('Edit'),
+        ];
+        // Allow for a custom edit link per plugin.
+        $edit_route = $link->getEditRoute();
+        if ($edit_route) {
+          $operations['edit']['url'] = $edit_route;
+          // Bring the user back to the menu overview.
+          // $operations['edit']['query'] = $this->getDestinationArray();
+        }
+        else {
+          // Fall back to the standard edit link.
+          $operations['edit'] += [
+            'url' => Url::fromRoute('menu_ui.link_edit', ['menu_link_plugin' => $link->getPluginId()]),
+          ];
+        }
+        // Links can either be reset or deleted, not both.
+        if ($link->isResettable()) {
+          $operations['reset'] = [
+            'title' => t('Reset'),
+            'url' => Url::fromRoute('menu_ui.link_reset', ['menu_link_plugin' => $link->getPluginId()]),
+          ];
+        }
+        elseif ($delete_link = $link->getDeleteRoute()) {
+          $operations['delete']['url'] = $delete_link;
+          // $operations['delete']['query'] = $this->getDestinationArray();
+          $operations['delete']['title'] = t('Delete');
+        }
+        if ($link->isTranslatable()) {
+          $operations['translate'] = [
+            'title' => t('Translate'),
+            'url' => $link->getTranslateRoute(),
+          ];
+        }
+        $form[$id]['operations'] = [
+          '#type' => 'operations',
+          '#links' => $operations,
+        ];
+      }
+
+      if ($element->subtree) {
+        _dap_custom_buildOverviewTreeForm($element->subtree, $delta);
+      }
+    }
+
+    $tree_access_cacheability
+      ->merge(CacheableMetadata::createFromRenderArray($form))
+      ->applyTo($form);
+
+    return $form;
+  }
