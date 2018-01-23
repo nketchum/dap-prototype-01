@@ -16,7 +16,6 @@ permissions:
   - 'access toolbar'
   - 'access user profiles'
   - 'add terms in categories'
-  - 'administer domains'
   - 'administer main menu items'
   - 'administer users'
   - 'assign domain editors'
