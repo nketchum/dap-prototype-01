@@ -29,7 +29,7 @@ function dap_custom_form_alter(&$form, FormStateInterface $form_state, $form_id)
   }
 
   if (
-    $form_id == 'menu_link_content_menu_link_content_form' ||
+    // $form_id == 'menu_link_content_menu_link_content_form' ||
     $form_id == 'node_product_form' ||
     $form_id == 'node_product_edit_form' ||
     $form_id == 'node_news_form' ||

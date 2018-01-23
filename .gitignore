@@ -28,22 +28,6 @@ web/sites/all/libraries/README.txt
 web/sites/all/modules/README.txt
 web/sites/all/themes/README.txt
 
-# Ignore everything but the "sites" folder
-web/.csslintrc
-web/.editorconfig
-web/.eslintignore
-web/.eslintrc.json
-web/.gitattributes
-web/.htaccess
-web/authorize.php
-web/autoload.php
-web/cron.php
-web/index.php
-web/install.php
-web/update.php
-web/web.config
-web/xmlrpc.php
-
 # Ignore paths that contain generated content.
 web/sites/*/files
 web/sites/*/private
